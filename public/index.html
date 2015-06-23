@@ -18,7 +18,7 @@
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 panel">
 					<div class="center-block inner-panel" ng-style="{'background-image': 'url(' + backgroundImg + ')' }">
-						<img ng-show="panelImageShow" class="img-responsive" ng-src="{{panelImage}}" />
+						<img ng-show="panelImageShow" class="img-responsive" ng-class="transparentClass" ng-src="{{panelImage}}" />
 						<p ng-show="panelMessageShow" class="panel-message">{{panelMessage}}</p>
 					</div>
 					<!-- <audio class="audio-player" autoplay controls ng-src="{{sound}}"></audio> -->

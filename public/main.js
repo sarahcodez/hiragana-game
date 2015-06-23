@@ -84,7 +84,7 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 	// }
 
 	$scope.highlightClass = [];
-
+	$scope.transparentClass = [];
 	$scope.progress = 0;
 	$scope.progressLabel = 0;
 
@@ -205,9 +205,20 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 
 		playSound(kanaObj); //callback/delay here for correct/incorrect sound
 
-		if(gameMode === '/hiragana-game') {
+		if (gameMode === '/home') {
+
+			// $scope.backgroundImg = kanaObj.animated;
+			$scope.panelImage = kanaObj.animated;
+			console.log(kanaObj.animated);
+			$scope.panelImageShow = true;
+			// $timeout(function() {
+			// 		$scope.$apply('panelImageShow = false');
+			// 	}, 5000);
+
+		} else if(gameMode === '/hiragana-game') {
 
 			$scope.backgroundImg = 'http://img2.wikia.nocookie.net/__cb20110209014543/japanese-ken/images/7/79/Japanese_Hiragana_A.png';
+			addClass($scope.transparentClass, 'transparent');
 			var result = checkGuess(kanaObj);
 			console.log(result);
 
@@ -320,11 +331,13 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 
 		if(navLink.Title === 'home') {
 
+			$scope.panelImageShow = false;
 			$scope.gameStatsShow = false;
 
 		} else if (navLink.Title === 'hiragana-game'){
 
 			//guessedItems = []; //change to scope?
+			$scope.panelImageShow = false;
 			$scope.gameStatsShow = true; //create an initialize game function
 			$scope.progress = 0;
 			$scope.progressLabel = 0;
@@ -407,6 +420,7 @@ app.service('dataService', function() {
 		this.id = id;
 		this.name = name; //hiragana
 		this.sound = "audio/tjp/hira-" + id + '.mp3'; //sound file
+		this.animated = "images/stroke-order/Hiragana_" + this.name + "_stroke_order_animation.gif";
 		this.disabled = false;
 	};
 
