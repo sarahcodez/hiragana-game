@@ -3,13 +3,11 @@ p, h3 {
 }
 
 .panel {
-	/*background-color: lightblue;*/
 	height: 200px;
 	margin-top: 15px;
 	text-align: center;
 	border-radius: 15px;
 	border: 2px solid lightblue;
-
 }
 
 .inner-panel {
@@ -26,8 +24,6 @@ p, h3 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	/*opacity: 0.4;
-    filter: alpha(opacity=60);*/
 }
 
 .transparent {
@@ -57,7 +53,7 @@ p, h3 {
 }
 
 .highlighted {
-/* highlighting/shadow when audio plays [ horizontal | vertical | blur | spread ]*/
+/* highlighting shadow when audio plays [ horizontal | vertical | blur | spread ]*/
 	-webkit-box-shadow: 0px 0px 30px 2px #2bde10;
 	-moz-box-shadow: 0px 0px 30px 2px #2bde10;
 	box-shadow: 0px 0px 30px 2px #2bde10;
@@ -65,15 +61,11 @@ p, h3 {
 
 .game-menu {
 	background-color: lightyellow;
-	/*height: 300px;*/
 	float: right;
-
-	
 }
 
 .game-list li {
 	margin: 15px;
-	
 }
 
 .btn-block {
@@ -87,7 +79,6 @@ p, h3 {
 }
 
 .buttons {
-	/*background-color: lightpink;*/
 	float: right;
 	text-align: center;
 }
@@ -135,10 +126,3 @@ p, h3 {
 button[disabled] {
    background-color: #CCC;
 }
-
-/*button {
-	font-size: 2em;
-	margin: 5px;
-	background-color: darkpink;
-	
-}*/
