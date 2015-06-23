@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Final Project</title>
+
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+</head>
+<body ng-app="hiragana" ng-controller="mainCtrl">
+
+	<div class="container">
+			<div class="row top-nav">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 panel">
+					<div class="center-block inner-panel" ng-style="{'background-image': 'url(' + backgroundImg + ')' }">
+						<img ng-show="panelImageShow" class="img-responsive" ng-src="{{panelImage}}" />
+						<p ng-show="panelMessageShow" class="panel-message">{{panelMessage}}</p>
+					</div>
+					<!-- <audio class="audio-player" autoplay controls ng-src="{{sound}}"></audio> -->
+				<!-- 	<audio controls>
+						 <source ng-src="{{sound}}" type="audio/mpeg">
+  Your browser does not support the audio element.</source>
+
+					</audio> -->
+				</div>
+				<div ng-show="gameStatsShow" class="col-sm-4 audio-container">
+					<div>
+						<img ng-class="highlightClass" class="img-responsive audio-icon" ng-src="{{audioIcon}}" ng-click="testReplay()" />
+					</div>
+					<div>
+						<h3 class="round-info">Round {{roundNumber}}:     {{roundGuesses}}/{{roundTotal}}</h3>
+					</div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" role="progressbar" 
+						aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+						{{progressLabel}}%
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row main">
+				<div class="well sidebar-nav col-sm-2 game-menu">
+					<!-- <button>Sandbox</button>
+					<button>Hiragana Game</button>
+					<button>Words Game</button> -->
+					<ul class="nav nav-pills game-list">
+						<li ng-repeat="navLink in navLinks" ng-class="navClass('{{navLink.Title}}')"><a href="#/{{navLink.Title}}" ng-click="processGameMode(navLink)">{{navLink.LinkText}}</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-1 buttons set-1">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index < 5" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button ng-click="playSound(0)">あ</button>
+					<button ng-click="playSound(1)">い</button>
+					<button ng-click="playSound(2)">う</button>
+					<button ng-click="playSound(3)">え</button>
+					<button ng-click="playSound(4)">お</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-2">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 4 && $index < 10" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>か</button>
+					<button>き</button>
+					<button>く</button>
+					<button>け</button>
+					<button>こ</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-3">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 9 && $index < 15" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>さ</button>
+					<button>し</button>
+					<button>す</button>
+					<button>せ</button>
+					<button>そ</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-4">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 14 && $index < 20" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>た</button>
+					<button>ち</button>
+					<button>つ</button>
+					<button>て</button>
+					<button>と</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-5">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 19 && $index < 25" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>な</button>
+					<button>に</button>
+					<button>ぬ</button>
+					<button>ね</button>
+					<button>の</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-6">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 24 && $index < 30" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>は</button>
+					<button>ひ</button>
+					<button>ふ</button>
+					<button>へ</button>
+					<button>ほ</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-7">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 29 && $index < 35" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>ま</button>
+					<button>み</button>
+					<button>む</button>
+					<button>め</button>
+					<button>も</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-8">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 34 && $index < 38" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>や</button>
+					<button></button>
+					<button>ゆ</button>
+					<button></button>
+					<button>よ</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-9">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 37 && $index < 43" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>ら</button>
+					<button>り</button>
+					<button>る</button>
+					<button>れ</button>
+					<button>ろ</button> -->
+				</div>
+				<div class="col-sm-1 buttons set-10">
+					<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 42 && $index < 46" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
+					<!-- <button>わ</button>
+					<button></button>
+					<button>を</button>
+					<button></button>
+					<button>ん</button> -->
+				</div>
+				
+			</div>
+
+	</div> <!-- End container (main page content) -->
+	<div> <!-- Start modal -->
+		<script type="text/ng-template" id="soundGameModal.html"> 
+
+				<div class="modal-header">
+					<h3 class="modal-title">Sound Game Intro</h3>
+				</div>
+
+				<div class="modal-body">
+					<p>See how many hiragana you can remember! After you press [Start Game!], a random hiragana sound will be played. (To hear the sound again, push the audio icon.) Guess which hiragana it is by pushing one of the hiragana buttons.</p>
+
+					<p>If you guess wrong, keep guessing until you get it right!</p>
+
+					<p>The game ends when you've guessed all the hiragana. Gambatte! (Good luck!)</p>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-success" ng-click="ok(); start()">Start Game!</button>
+					<button class="btn" ng-click="cancel()">Cancel</button>
+				</div>
+
+		</script>
+		<script type="text/ng-template" id="gameOverModal.html"> 
+
+				<div class="modal-header">
+					<h3 class="modal-title">Sound Game Stats</h3>
+				</div>
+
+				<div class="modal-body">
+					<p>Congratulations! You completed all 46 sounds!</p>
+
+					<p>Mastered Sounds: {{masteryNum}}</p>
+
+					<p>Sounds to Review: {{reviewNum}}</p>
+
+					<p>Review the sounds you got wrong?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-success" ng-click="ok(); review()">Review Missed Sounds</button>
+					<button class="btn" ng-click"ok(); start()">Play New Game</button>
+					<button class="btn" ng-click="cancel()">Finish</button>
+				</div>
+
+		</script>
+
+		
+
+	</div> <!-- End modal -->
+
+	<script src="vendor/angular/angular.min.js"></script>
+	<script src="main.js"></script>
+	<script src="vendor/jquery-1.11.3.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+</body>
+</html>

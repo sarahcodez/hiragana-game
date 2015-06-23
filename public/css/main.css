@@ -1,0 +1,134 @@
+p, h3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.panel {
+	/*background-color: lightblue;*/
+	height: 200px;
+	margin-top: 15px;
+	text-align: center;
+	border-radius: 15px;
+	border: 2px solid lightblue;
+
+}
+
+.inner-panel {
+	height: 200px;
+	width: 200px;
+	background-size: 200px 200px;
+}
+
+.panel img {
+	max-width: 200px;
+	margin: 0 auto;
+	opacity: 0.4;
+    filter: alpha(opacity=60);
+}
+
+.panel-message {
+	font-size: 2.5em;
+	margin-top: 60px;
+	font-weight: bold;
+}
+
+.audio-container {
+	text-align: center;
+}
+
+.audio-icon {
+	max-height: 100px;
+	border: 2px solid lightgrey;
+	border-radius: 15px;
+	margin: 15px auto;
+}
+
+.round-info {
+	font-weight: bold;
+}
+
+.highlighted {
+/* highlighting/shadow when audio plays [ horizontal | vertical | blur | spread ]*/
+	-webkit-box-shadow: 0px 0px 30px 2px #2bde10;
+	-moz-box-shadow: 0px 0px 30px 2px #2bde10;
+	box-shadow: 0px 0px 30px 2px #2bde10;
+}
+
+.game-menu {
+	background-color: lightyellow;
+	/*height: 300px;*/
+	float: right;
+
+	
+}
+
+.game-list li {
+	margin: 15px;
+	
+}
+
+.btn-block {
+	color: white;
+	font-size: 1.5em;
+	font-weight: bold;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	min-height: 2em;
+	min-width: 2em;
+}
+
+.buttons {
+	/*background-color: lightpink;*/
+	float: right;
+	text-align: center;
+}
+
+.set-1 button {
+	background-color: #FF0000;
+}
+
+.set-2 button {
+	background-color: #FF6600;
+}
+
+.set-3 button {
+	background-color: #FF9933;
+}
+
+.set-4 button {
+	background-color: #FFCC00;
+}
+
+.set-5 button {
+	background-color: #33CC33;
+}
+
+.set-6 button {
+	background-color: #00CCFF;
+}
+
+.set-7 button {
+	background-color: #0066FF;
+}
+
+.set-8 button {
+	background-color: #9933FF;
+}
+
+.set-9 button {
+	background-color: #CC66FF;;
+}
+
+.set-10 button {
+	background-color: #FF66CC;
+}
+
+button[disabled] {
+   background-color: #CCC;
+}
+
+/*button {
+	font-size: 2em;
+	margin: 5px;
+	background-color: darkpink;
+	
+}*/
