@@ -189,9 +189,10 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 			$scope.panelImage = kanaObj.animated;
 			$scope.panelImageShow = true;
 
-		} else if(gameMode === '/hiragana-game') {
+		} else if (gameMode === '/hiragana-game') {
 
-			$scope.backgroundImg = 'http://img2.wikia.nocookie.net/__cb20110209014543/japanese-ken/images/7/79/Japanese_Hiragana_A.png';
+			$scope.backgroundImg = kanaObj.image;
+			console.log($scope.backgroundImg);
 			addClass($scope.transparentClass, 'transparent');
 			var result = checkGuess(kanaObj);
 			console.log(result);
@@ -374,6 +375,7 @@ app.service('dataService', function() {
 		this.id = id;
 		this.name = name; //hiragana
 		this.sound = "audio/tjp/hira-" + id + '.mp3'; //sound file
+		this.image = "images/hiragana/hiragana-" + id + '.png';
 		this.animated = "images/stroke-order/Hiragana_" + this.name + "_stroke_order_animation.gif";
 		this.disabled = false;
 	};
