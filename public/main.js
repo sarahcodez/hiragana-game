@@ -21,12 +21,12 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 
 	$scope.navLinks = [{
 		Title: 'home',
-		LinkText: 'Sandbox'
+		LinkText: 'Home'
 	}, {
-		Title: 'hiragana-game',
+		Title: 'sound-game',
 		LinkText: 'Sound Game'
 	}, {
-		Title: 'kotoba-game',
+		Title: 'word-game',
 		LinkText: 'Word Game'
 	}];
 
@@ -189,7 +189,7 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 			$scope.panelImage = kanaObj.animated;
 			$scope.panelImageShow = true;
 
-		} else if (gameMode === '/hiragana-game') {
+		} else if (gameMode === '/sound-game') {
 
 			$scope.backgroundImg = kanaObj.image;
 			console.log($scope.backgroundImg);
@@ -297,7 +297,7 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 
 			} //end result === 'Incorrect'
 
-		} //end /hiragana-game mode
+		} //end /sound-game mode
 			
 	}; //End kanaButtonClicked function
 
@@ -308,7 +308,7 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 			$scope.panelImageShow = false;
 			$scope.gameStatsShow = false;
 
-		} else if (navLink.Title === 'hiragana-game') {
+		} else if (navLink.Title === 'sound-game') {
 
 			$scope.panelImageShow = false;
 			$scope.gameStatsShow = true;
@@ -321,9 +321,9 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, d
 				playTestSound(guessedItems);
 			}
 
-		} else if (navLink.Title === 'kotoba-game') {
+		} else if (navLink.Title === 'word-game') {
 
-			console.log('kotoba game!');
+			console.log('word game!');
 
 		}
 
