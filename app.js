@@ -77,12 +77,49 @@ app.get('/game', function(req, res) {
 	});
 });
 
+app.get('/game/:id', function(req, res) {
+	var id = req.params.id;
+	Game.findOne({_id: id}, function(err, game) {
+
+		if(err) {
+			res.status(401).send('Error looking up games');
+		} else {
+			res.send(game);
+		}
+
+	});
+});
+
 app.post('/game', function(req, res) {
 	var newGame = new Game(req.body);
 	newGame.save(function(err, savedItem) {
 		res.send({
 			msg: "Success",
 			body: savedItem
+		});
+	});
+});
+
+app.put('/game/:id', function(req, res) {
+	var id = req.params.id;
+	Game.findOne({_id: id}, function(err, game) {
+		for (var key in req.body) {
+			game[key] = req.body[key];
+		}
+		game.save();
+		res.send(game);
+	});
+});
+
+app.delete('/game/:id', function(req, res) {
+	var id = req.params.id;
+	Game.findOne({_id: id}, function(err, game) {
+		game.remove(function(err) {
+			if(err) {
+				res.send(err);
+			} else {
+				res.send('Success');
+			}
 		});
 	});
 });
@@ -99,12 +136,49 @@ app.get('/user', function(req, res) {
 	});
 });
 
+app.get('/user/:id', function(req, res) {
+	var id = req.params.id;
+	User.findOne({_id: id}, function(err, user) {
+
+		if(err) {
+			res.status(401).send('Error looking up user');
+		} else {
+			res.send(user);
+		}
+
+	});
+});
+
 app.post('/user', function(req, res) {
 	var newUser = new User(req.body);
 	newUser.save(function (err, savedItem) {
 		res.send({
 			msg: "Success",
 			body: savedItem
+		});
+	});
+});
+
+app.put('/user/:id', function(req, res) {
+	var id = req.params.id;
+	User.findOne({_id: id}, function(err, user) {
+		for (var key in req.body) {
+			user[key] = req.body[key];
+		}
+		user.save();
+		res.send(user);
+	});
+});
+
+app.delete('/user/:id', function(req, res) {
+	var id = req.params.id;
+	User.findOne({_id: id}, function(err, user) {
+		user.remove(function(err) {
+			if(err) {
+				res.send(err);
+			} else {
+				res.send('Success');
+			}
 		});
 	});
 });
