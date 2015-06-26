@@ -1,8 +1,8 @@
-<!-- Controller: "mainCtrl" -->
+
 <div class="container">
 	<div class="row top-nav">
 		<div class="col-sm-4"></div>
-		<div class="col-sm-4 panel">
+		<div class="col-sm-4 outer-panel"> <!-- Changed "panel" class to "outer-panel" because "panel" already specified in Boostrap -->
 			<div class="center-block inner-panel" ng-style="{'background-image': 'url(' + backgroundImg + ')' }">
 				<img ng-show="panelImageShow" class="img-responsive" ng-class="transparentClass" ng-src="{{panelImage}}" />
 				<p ng-show="panelMessageShow" class="panel-message">{{panelMessage}}</p>
@@ -108,4 +108,4 @@
 		</div>
 
 	</script>
-</div> <!-- End modals -->
+</div> <!-- End modals

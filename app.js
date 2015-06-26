@@ -5,7 +5,6 @@ var db = mongoose.connect('mongodb://localhost/hiragana-game'); //name of databa
 var bodyParser = require('body-parser');
 var path = require('path');
 
-//var User = require('./model/models');
 var Models = require('./model/models');
 var User = Models.User;
 var Game = Models.Game;
@@ -103,11 +102,17 @@ app.post('/game', function(req, res) {
 app.put('/game/:id', function(req, res) {
 	var id = req.params.id;
 	Game.findOne({_id: id}, function(err, game) {
-		for (var key in req.body) {
-			game[key] = req.body[key];
+
+		if(err) {
+			res.send(err);
+		} else {
+			for (var key in req.body) {
+				game[key] = req.body[key];
+			}
+			game.save();
+			res.send(game);
 		}
-		game.save();
-		res.send(game);
+
 	});
 });
 

@@ -2,9 +2,19 @@ p, h3 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-.panel {
+button[disabled] {
+   background-color: #CCC;
+}
+
+table {
+    table-layout:fixed;
+    width:100%;
+}
+
+.outer-panel {
 	height: 200px;
 	margin-top: 15px;
+	margin-bottom: 15px;
 	text-align: center;
 	border-radius: 15px;
 	border: 2px solid lightblue;
@@ -123,6 +133,6 @@ p, h3 {
 	background-color: #FF66CC;
 }
 
-button[disabled] {
-   background-color: #CCC;
+.user-message {
+	font-style: italic;
 }
