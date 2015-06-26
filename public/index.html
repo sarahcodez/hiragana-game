@@ -11,21 +11,28 @@
 	<link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 </head>
-<body ng-app="hiragana">
+<body ng-app="main"> <!-- changed name of app from 'hiragana' to 'main'. sub-apps will be given names like main.hiragana and main.userstats -->
+
+	<a href="/#/home">Home</a>
+	<a href="/#/sound-game">Sound Game</a>
+	<a href="/#/user-stats">User Stats</a>
 
 	<ng-view></ng-view>
 	
 	<!-- VENDOR -->
-	<script src="vendor/angular/angular.min.js"></script>
+	<!-- <script src="vendor/angular/angular.min.js"></script> -->
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
 	<script src="vendor/jquery-1.11.3.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-	<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<!--
 	Since the public directory is set as static on the node server make sure you NEVER include it in your path
 	in your linked files
 	-->
 	<script src="main.js"></script>
+	<script src="factories/game-factory.js"></script>
 	<script src="views/hiragana/hiragana.js"></script>
 	<script src="views/user-stats/user-stats.js"></script>	
 </body>
