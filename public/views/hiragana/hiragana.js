@@ -3,32 +3,14 @@ var app = angular.module('main.hiragana', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
 	$routeProvider
-		// .when('/hiragana', {
-		// 	redirectTo: '/hiragana/home'
-		// })
-		// .when('/hiragana/:secondaryNav', {
-		// 	controller: 'mainCtrl',
-		// 	templateUrl: 'views/hiragana/hiragana.tpl.html'
-		// });
-		.when('/home', {
+		.when('/hiragana', {
 			controller: 'mainCtrl',
 			templateUrl: 'views/hiragana/hiragana.tpl.html'
-		})
-		.when('/sound-game', {
-			controller: 'mainCtrl',
-			templateUrl: 'views/hiragana/hiragana.tpl.html'
-		})
-		.when('/word-game', {
-			controller: 'mainCtrl',
-			templateUrl: 'views/hiragana/hiragana.tpl.html'
-		})
-		.otherwise({
-			redirectTo: '/home'
 		});
 });
 
 app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, Game) {
-	//inject routeParams as dependency
+	
 	var gameMode = 'home';
 	var audio; //kana buttons
 	var guessedItems;
@@ -58,28 +40,9 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
     // console.log('Here is the result of creating a new game using the factory: ');
     // console.log($scope.currentGame);
 
-
 	//Factory Code end
 
 	$scope.hiragana = dataService.hiragana;
-
-	$scope.navLinks = [{
-		Title: 'home',
-		LinkText: 'Home'
-	}, {
-		Title: 'sound-game',
-		LinkText: 'Sound Game'
-	}, {
-		Title: 'word-game',
-		LinkText: 'Word Game'
-	}];
-
-	$scope.navClass = function (page) {
-		//gameMode = $location.path();
-		//console.log('NavClass says the gameMode is ' + gameMode);
-		var currentRoute = $location.path().substring(1) || 'home';
-		return page === currentRoute ? 'active' : '';
-	};
 
 	$scope.playSoundGame = false;
 
@@ -103,33 +66,21 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 	$scope.progressLabel = 0;
 
 	$scope.startGame = function(result) {
-		console.log('This is in the StartGame function before result is true: ' + result);
+		
 		if(result === true) {
-			console.log('Start function called!');
-			console.log('Result is ' + result);
-			console.log('In the startGame function, the location path is ' + $location.path() + ' and the Game Mode is ' + gameMode);
-			$scope.gameStatsShow = true; //this is not working
-			console.log('John Wayne = ' + $scope.gameStatsShow);
+
+			$scope.gameStatsShow = true; 
 			guessedItems = [];
-			$scope.roundNumber = 1; //this is working because already initialized
-			$scope.roundGuesses = 0; //this is working because already initialized
-			$scope.roundTotal = 15; //this is working because already initialized
-			$scope.panelMessage = 'Round 1!'; //this is not working
-			$scope.panelMessageShow = true; //this is not working
+			$scope.roundNumber = 1; 
+			$scope.roundGuesses = 0; 
+			$scope.roundTotal = 15; 
+			$scope.panelMessage = 'Round 1!'; 
+			$scope.panelMessageShow = true;
 			$timeout(function() {
-					console.log('This is inside the startGame timeout function (before). testSound is: ');
-					console.log(testSound);
+
 					$scope.$apply('panelMessageShow = false');
-
-					$scope.playTestSound(guessedItems); //this is working but it is not passing the testSound
+					$scope.playTestSound(guessedItems);
 					
-					console.log('This is inside the startGame timeout function (right after). testSound is: ');
-					console.log(testSound);
-
-					console.log('The guessed Items are ' + guessedItems);
-					console.log(guessedItems);
-					console.log('the testSound is');
-					console.log(testSound);
 				}, 2000);
 		}
 	};
@@ -137,60 +88,13 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 	$scope.playTestSound = function(guessedArray) {
 		var guessedSounds = guessedArray;
 		unguessedSounds = getUnguessed(guessedSounds);
-		console.log('This is inside the playTestSound function (before). testSound is: ');
-		console.log(testSound);
 		testSound = getRandSound(unguessedSounds);
-		console.log('This is inside the playTestSound function (after). testSound is: ');
-		console.log(testSound);
-		$scope.applyHighlight(); //this is not working
+		$scope.applyHighlight();
 		playSound(testSound);
 	};
 
 	//Open a modal window to provide an intro and start button for the Sounds Game
 
-	// function open () { //rename as soundGameIntro //modified
-
-	//     var modalInstance = $modal.open({
-	//       animation: true,
-	//       templateUrl: 'soundGameModal.html',
-	//       controller: function ($scope, $modalInstance, playSoundGame) {
-
-	//       		$scope.playSoundGame = playSoundGame;
-
-	//       		$scope.ok = function () {
-	//       			$scope.playSoundGame = true;
-	// 				$modalInstance.close($scope.playSoundGame);
-	// 			};
-
-	// 			// $scope.start = function() {
-	// 			// 	return true;
-	// 			// 	//startGame(true);
-	// 			// };
-
-	// 			$scope.cancel = function () {
-	// 				$modalInstance.dismiss('cancel');
-	// 			};
-	//       },
-	//       size: 'md',
-	//       resolve: { //passes information from main scope to scope for modal
-	//       	playSoundGame: function() {
-	//       		return $scope.playSoundGame;
-	//       	}
-	//       }
- //    	});
-
-	//     modalInstance.result.then(function (result) {
-	//     	$scope.playSoundGame = result;
-	//     	startGame();
-	//       	console.log('Modal success!')
-	//       	console.log($scope.playSoundGame);
-	//     }, function () {
-	//       $log.info('Modal dismissed at: ' + new Date());
-	//     });
-
- //  	}
-
-	//original
 	function open () { //rename as soundGameIntro
 
 	    var modalInstance = $modal.open({
@@ -300,8 +204,6 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 	
 	$scope.kanaButtonClicked = function(kanaObj) {
 
-		console.log('Clint Eastwood at the top of the kanaButtonClicked function says the testSound is: ');
-		console.log(testSound);
 		playSound(kanaObj);
 
 		//if ($routeParams.home)
@@ -424,24 +326,15 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 
 	$scope.processGameMode = function(navLink){
 
-		// $location.path('/' + navLink.Title);
 		gameMode  = navLink;
-		console.log('processGameMode changed the location path to: ' + $location.path() + 'and the gameMode to ' + gameMode);
-		//$route.reload();
 
 		if(navLink === 'home') {
 
-			// console.log('gameMode is ' + gameMode);
-			// console.log('locationpath is' + $location.path());
-			// console.log('navLink title is ' + navLink.Title);
 			$scope.panelImageShow = false;
 			$scope.gameStatsShow = false;
 
 		} else if (navLink === 'sound-game') {
 
-			// console.log('gameMode is ' + gameMode);
-			// console.log('locationpath is' + $location.path());
-			// console.log('navLink title is ' + navLink.Title);
 			$scope.panelImageShow = false;
 			//$scope.gameStatsShow = true;
 			$scope.progress = 0;
@@ -449,17 +342,10 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 			
 			open(); //Open Modal that has a Start Game button
 
-			// if($scope.playSoundGame === true) {
-			// 	playTestSound(guessedItems);
-			// }
-
 		} else if (navLink === 'word-game') {
 
-			// console.log('gameMode is ' + gameMode);
-			// console.log('locationpath is' + $location.path());
-			// console.log('navLink title is ' + navLink.Title);
 			console.log('word game!');
-			//$scope.startGame(true);
+
 			$scope.createNewGame('hiragana-sound');
     		console.log('Here is the result of creating a new game using the factory: ');
     		console.log($scope.currentGame);
