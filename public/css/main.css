@@ -2,10 +2,6 @@ p, h3 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-button[disabled] {
-   background-color: #CCC;
-}
-
 table {
     table-layout:fixed;
     width:100%;
@@ -131,6 +127,11 @@ table {
 
 .set-10 button {
 	background-color: #FF66CC;
+}
+
+/*Keep under main button styling or doesn't apply*/
+button[disabled] {
+   background-color: #CCC;
 }
 
 .user-message {

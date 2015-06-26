@@ -8,8 +8,8 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('userStatsCtrl', function($scope) {
+app.controller('userStatsCtrl', function($scope, httpService) {
 
 	$scope.page = 'User Stats';
-	
+
 });
