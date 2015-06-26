@@ -10,4 +10,6 @@ app.config(function ($routeProvider) {
 
 app.controller('userStatsCtrl', function($scope) {
 
+	$scope.page = 'User Stats';
+	
 });

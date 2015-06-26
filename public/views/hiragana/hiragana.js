@@ -9,7 +9,7 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, Game) {
+app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, httpService, Game) {
 	
 	var gameMode = 'home';
 	var audio; //kana buttons
@@ -24,6 +24,57 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 
 	var unguessedSounds;
 	var reviewMode = false;
+
+	$scope.page = 'Hiragana';
+
+	//API functions -- may not need all here
+
+	$scope.users = [];
+	$scope.games = [];
+	$scope.gameToSave = {};
+	$scope.userToSave = {};
+
+	$scope.getUsers = function () {
+
+		httpService.getUsers().then(function (data) {
+			$scope.users = data;
+		}, function(err) {
+			console.log(err);
+		});
+
+	};
+
+	$scope.createUser = function() {
+
+		httpService.createUser($scope.userToSave).then(function (data) {
+			console.log(data);
+		}, function (err) {
+			console.log(err);
+		});
+
+		$scope.userToSave = {};
+	};
+
+	$scope.getGames = function() {
+
+		httpService.getGames().then(function (data) {
+			$scope.games = data;
+		}, function(err) {
+			console.log(err);
+		});
+
+	};
+
+	$scope.addGame = function() {
+
+		httpService.addGame($scope.gameToSave).then(function (data) {
+			console.log(data);
+		}, function (err) {
+			console.log(err);
+		});
+
+		$scope.gameToSave = {};
+	};
 
 	//Factory Code start -- for testing: not yet integrated
 
@@ -400,6 +451,65 @@ app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $
 		
 }); //end app.controller 'mainCtrl'
 
+app.service('httpService', function($http, $q) {
+
+	var BASE_URL = 'http://localhost:8080'; //change later
+	var URL_GAME = '/game';
+	var URL_USER = '/user';
+
+	this.addGame = function(game) {
+		var deferred = $q.defer();
+		$http.post(BASE_URL + URL_GAME, game).success(function(data) {
+			deferred.resolve(data);
+		}).error(function (err) {
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end addGame
+
+	this.getGames = function() {
+		var deferred = $q.defer();
+		$http.get(BASE_URL + URL_GAME).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end getGames
+
+	//need a getUser (single) function
+
+	this.getUsers = function() {
+		var deferred = $q.defer();
+		$http.get(BASE_URL + URL_USER).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end getUsers
+
+	this.createUser = function(user) {
+		var deferred = $q.defer();
+		$http.post(BASE_URL + URL_USER, user).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end createUser
+
+});
 
 app.service('dataService', function() {
 

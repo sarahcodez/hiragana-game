@@ -61,8 +61,11 @@ firstGame = new Game({type: 'hiragana-sound', masteryDeck: [{
 // 	});
 // });
 
-app.get('/games', function(req, res) {
+//changed routes from /games and /users to singular form
+
+app.get('/game', function(req, res) {
 	Game.find({}, function(err, games) {
+
 		if(err) {
 			res.status(401).send('Error looking up games');
 		} else {
@@ -70,10 +73,21 @@ app.get('/games', function(req, res) {
 			res.send(games);
 			console.log(games);
 		}
+
 	});
 });
 
-app.get('/users', function(req, res) {
+app.post('/game', function(req, res) {
+	var newGame = new Game(req.body);
+	newGame.save(function(err, savedItem) {
+		res.send({
+			msg: "Success",
+			body: savedItem
+		});
+	});
+});
+
+app.get('/user', function(req, res) {
 	User.find({}, function(err, users) {
 		if(err) {
 			res.status(401).send('Error looking up users');
@@ -82,6 +96,16 @@ app.get('/users', function(req, res) {
 			res.send(users);
 			console.log(users);
 		}
+	});
+});
+
+app.post('/user', function(req, res) {
+	var newUser = new User(req.body);
+	newUser.save(function (err, savedItem) {
+		res.send({
+			msg: "Success",
+			body: savedItem
+		});
 	});
 });
 
