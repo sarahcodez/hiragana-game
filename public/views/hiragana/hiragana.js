@@ -9,7 +9,7 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('mainCtrl', function($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, httpService, Game) {
+app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, httpService, Game) {
 	
 	var gameMode = 'home';
 	var audio; //kana buttons

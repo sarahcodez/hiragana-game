@@ -16,7 +16,8 @@
 	<div class="container">
 		<div class="row header">
 			<div class="col-xs-12">
-				<h2>KanaNinja245</h2>
+				<h2>{{userName}}</h2>
+				<button ng-click="getUser()">Test!</button>
 			</div>	
 		</div>
 		<div class="row main-stats">
@@ -25,6 +26,37 @@
 			</div>
 			<div class="col-xs-6 text-right">
 				<h3>Status: Beginner</h3>
+			</div>
+		</div>
+		<div class="row">	
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h4>Hiragana - Sound</h4>
+					<h5>Score: 70</h5>
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped">
+					    <thead>
+					      <tr>
+					        <th>Games</th>
+					        <th>Mastered</th>
+					        <th>Missed</th>
+					        <th>Review Missed for More Points</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="game in userGames">
+					        <td>
+					        	<p>Game 3</p>
+					        	<p>6/28/2015</p>
+					        </td>
+					        <td>{{game.masteryDeck.length}}</td>
+					        <td>{{game.reviewDeck.length}}</td>
+					        <td><button>Review</button></td>
+					      </tr>
+					    </tbody>
+					 </table>
+				</div>
 			</div>
 		</div>
 		<div class="row">	

@@ -30,6 +30,19 @@ app.service('httpService', function($http, $q) {
 		return deferred.promise;
 	}; //end getGames
 
+	this.getGame = function(id) {
+		var deferred = $q.defer();
+		$http.get(BASE_URL + URL_GAME + '/' + id).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end getGame
+
 	//need a getUser (single) function
 
 	this.getUsers = function() {
@@ -57,5 +70,18 @@ app.service('httpService', function($http, $q) {
 
 		return deferred.promise;
 	}; //end createUser
+
+	this.getUser = function(id) {
+		var deferred = $q.defer();
+		$http.get(BASE_URL + URL_USER + '/' + id).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	};
 
 });
