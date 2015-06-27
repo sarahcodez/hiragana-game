@@ -17,6 +17,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	var testSound = {};
 	var reviewDeck = [];
 	var masteryDeck = [];
+	var gameId = dataService.gameId;
 
 	var correctSound = new Audio("audio/correct_guess.wav");
 	var incorrectSound = new Audio("audio/incorrect_guess.wav");
@@ -67,13 +68,32 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	};
 
 	//*****Add this to gameOver modal and see if can console.log game Id when save button is pushed from modal
-	$scope.addGame = function() {
+	$scope.addGame = function(callback) {
 
 		httpService.addGame($scope.currentGame).then(function (data) {
-			console.log(data);
+			console.log(data.body);
+			return data.body;
 		}, function (err) {
+
 			console.log(err);
+
+		}).then(function(body) {
+
+			console.log('second function worked!');
+			gameId = body._id;
+			dataService.gameId = gameId;
+			console.log('addGame function says gameId is: ' + gameId);
+			console.log('addGame function says dataService.gameId is ' + dataService.gameId);
+
+			return gameId;
+
 		});
+
+		// .then(function(gameId, callback) {
+
+		// 	callback(gameId);
+
+		// });
 
 		$scope.currentGame = {};
 	};
@@ -194,23 +214,38 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
   		var modalInstance = $modal.open({
 	      animation: true,
 	      templateUrl: 'gameOverModal.html',
-	      controller: function ($scope, $modalInstance, startGame, reviewDeck, masteryDeck) {
+	      controller: function ($scope, $modalInstance, dataService, httpService, addGame, currentGame, gameId) {
 
-	      		$scope.reviewNum = reviewDeck.length;
-	      		$scope.masteryNum = masteryDeck.length;
+	      		$scope.currentGame = currentGame;
+	      		$scope.reviewNum = currentGame.reviewDeck.length;
+	      		$scope.masteryNum = currentGame.masteryDeck.length;
+	      		var gameId = gameId;
+	      		// function closeModal() {
+	      		// 	$modalInstance.close(gameId);
+	      		// }
+	      		//var savedGame = addGame();
+	      		// var gameId = gameId;
+	      		// console.log(gameId);
+	      		// function addAndGetId (callback) {
+
+	      		// }
 
 	      		$scope.ok = function () {
-					$modalInstance.close();
+	      			//addGame(closeModal);
+	      			// console.log(savedGame);
+	      			// gameId = savedGame._id;
+	      			//console.log(gameId); //failed
+					$modalInstance.close(addGame);
 				};
 
-				$scope.start = function() {
-					startGame(true);
-				};
+				// $scope.start = function() {
+				// 	startGame(true);
+				// };
 
-				$scope.review = function() {
-					console.log('Review function called! Review deck: ');
-					console.log(reviewDeck);
-				}
+				// $scope.review = function() {
+				// 	console.log('Review function called! Review deck: ');
+				// 	console.log(reviewDeck);
+				// }
 
 				$scope.cancel = function () {
 					$modalInstance.dismiss('cancel');
@@ -218,20 +253,30 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	      },
 	      size: 'md',
 	      resolve: {
-	      	startGame: function() {
-	      		return $scope.startGame;
+	      	addGame: function() {
+	      		return $scope.addGame;
 	      	},
-	      	reviewDeck: function() {
-	      		return reviewDeck;
-	      	}, 
-	      	masteryDeck: function() {
-	      		return masteryDeck;
+	      	currentGame: function() {
+	      		return $scope.currentGame;
+	      	},
+	      	gameId: function() {
+	      		return dataService.gameId;
 	      	}
+	      	// startGame: function() {
+	      	// 	return $scope.startGame;
+	      	// },
+	      	// reviewDeck: function() {
+	      	// 	return reviewDeck;
+	      	// }, 
+	      	// masteryDeck: function() {
+	      	// 	return masteryDeck;
+	      	// }
 	      }
     	});
 
-	    modalInstance.result.then(function () {
-	      console.log('Modal success!')
+	    modalInstance.result.then(function (addGame) {
+	    	var gameId = addGame();
+	      console.log('gameId: ' + gameId); //failed
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
@@ -324,7 +369,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 						
 					correctSound.onended = function() { 
 
-						if (guessedItems.length === 46) { //Game Finished
+						if (guessedItems.length === 2) { //Game Finished
 
 							finishSound.play();
 

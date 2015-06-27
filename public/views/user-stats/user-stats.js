@@ -8,7 +8,7 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('userStatsCtrl', function ($scope, httpService) {
+app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 	$scope.page = 'User Stats';
 
@@ -19,6 +19,9 @@ app.controller('userStatsCtrl', function ($scope, httpService) {
 	$scope.userGames = [];
 
 	$scope.gameType = '';
+
+	var gameId = dataService.gameId;
+	console.log(gameId);
 
 	//var userGameIds = []; //558cb314ca1595cb165e1f81
 
