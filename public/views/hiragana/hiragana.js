@@ -84,7 +84,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 			dataService.gameId = gameId;
 			console.log('addGame function says gameId is: ' + gameId);
 			console.log('addGame function says dataService.gameId is ' + dataService.gameId);
-
 			return gameId;
 
 		});
@@ -214,38 +213,16 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
   		var modalInstance = $modal.open({
 	      animation: true,
 	      templateUrl: 'gameOverModal.html',
-	      controller: function ($scope, $modalInstance, dataService, httpService, addGame, currentGame, gameId) {
+	      controller: function ($scope, $modalInstance, dataService, httpService, addGame, currentGame) {
 
 	      		$scope.currentGame = currentGame;
 	      		$scope.reviewNum = currentGame.reviewDeck.length;
 	      		$scope.masteryNum = currentGame.masteryDeck.length;
-	      		var gameId = gameId;
-	      		// function closeModal() {
-	      		// 	$modalInstance.close(gameId);
-	      		// }
-	      		//var savedGame = addGame();
 	      		// var gameId = gameId;
-	      		// console.log(gameId);
-	      		// function addAndGetId (callback) {
-
-	      		// }
 
 	      		$scope.ok = function () {
-	      			//addGame(closeModal);
-	      			// console.log(savedGame);
-	      			// gameId = savedGame._id;
-	      			//console.log(gameId); //failed
 					$modalInstance.close(addGame);
 				};
-
-				// $scope.start = function() {
-				// 	startGame(true);
-				// };
-
-				// $scope.review = function() {
-				// 	console.log('Review function called! Review deck: ');
-				// 	console.log(reviewDeck);
-				// }
 
 				$scope.cancel = function () {
 					$modalInstance.dismiss('cancel');
@@ -262,22 +239,14 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	      	gameId: function() {
 	      		return dataService.gameId;
 	      	}
-	      	// startGame: function() {
-	      	// 	return $scope.startGame;
-	      	// },
-	      	// reviewDeck: function() {
-	      	// 	return reviewDeck;
-	      	// }, 
-	      	// masteryDeck: function() {
-	      	// 	return masteryDeck;
-	      	// }
 	      }
     	});
 
 	    modalInstance.result.then(function (addGame) {
-	    	var gameId = addGame();
-	      console.log('gameId: ' + gameId); //failed
+	    	addGame();
+	    	$location.path('/user-stats');
 	    }, function () {
+	    	$window.location.reload();
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
 
