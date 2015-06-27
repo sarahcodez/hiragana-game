@@ -31,7 +31,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	$scope.users = [];
 	$scope.games = [];
-	$scope.gameToSave = {};
+	//$scope.gameToSave = {};
 	$scope.userToSave = {};
 
 	$scope.getUsers = function () {
@@ -66,15 +66,16 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	};
 
+	//*****Add this to gameOver modal and see if can console.log game Id when save button is pushed from modal
 	$scope.addGame = function() {
 
-		httpService.addGame($scope.gameToSave).then(function (data) {
+		httpService.addGame($scope.currentGame).then(function (data) {
 			console.log(data);
 		}, function (err) {
 			console.log(err);
 		});
 
-		$scope.gameToSave = {};
+		$scope.currentGame = {};
 	};
 
 	//Factory Code start -- for testing: not yet integrated
@@ -120,6 +121,10 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	$scope.startGame = function(result) {
 		
 		if(result === true) {
+
+			$scope.createNewGame('hiragana-sound');
+    		console.log('Here is the result of creating a new game using the factory: ');
+    		console.log($scope.currentGame);
 
 			$scope.gameStatsShow = true; 
 			guessedItems = [];
@@ -235,8 +240,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	
 	$scope.applyHighlight = function() {
 		addClass($scope.highlightClass, 'highlighted');
-		console.log('This is inside the applyHighlight function. testSound is: ');
-		console.log(testSound);
 		$timeout(function() {
 			$scope.highlightClass.pop(); //refactor as removeClass()
 				}, 800);
@@ -275,6 +278,8 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 			if (result === 'Correct') {
 
 				guessedItems.push(kanaObj); //keep before playTestSound function
+				$scope.currentGame.masteryDeck.push(kanaObj);
+				console.log($scope.currentGame.masteryDeck);
 				kanaObj.disabled = true;
 				$scope.panelImage = 'images/maru.png';
 				$scope.panelImageShow = true;
@@ -323,14 +328,14 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 							finishSound.play();
 
-							masteryDeck = $scope.hiragana.filter(function(obj) {
-								return reviewDeck.indexOf(obj) == -1;
-							});
+							// masteryDeck = $scope.hiragana.filter(function(obj) {
+							// 	return reviewDeck.indexOf(obj) == -1;
+							// });
 
-							console.log('Mastery Deck: ');
-							console.log(masteryDeck);
-							console.log('Review Deck: ');
-							console.log(reviewDeck);
+							// console.log('Mastery Deck: ');
+							// console.log(masteryDeck);
+							// console.log('Review Deck: ');
+							// console.log(reviewDeck);
 							gameOver();
 
 						} else { //Correct but haven't finished round
@@ -357,11 +362,12 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 					$scope.backgroundImg = '';
 				}, 2000); //Used twice: refactor as reusable function
 
-				if(reviewDeck.indexOf(testSound) === -1) {
-					reviewDeck.push(testSound);
+				if($scope.currentGame.reviewDeck.indexOf(testSound) === -1) {
+					//reviewDeck.push(testSound);
+					$scope.currentGame.reviewDeck.push(testSound);
 				}
 				console.log('Review Deck: ');
-				console.log(reviewDeck);
+				console.log($scope.currentGame.reviewDeck);
 
 				audio.onended = function() {	
 					incorrectSound.play();
@@ -386,10 +392,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 			$scope.gameStatsShow = false;
 			testSound = {};
 
-			// // $scope.$apply(function() {
-			// // 	$scope.hiragana = dataService.hiragana;
-			// // });
-			// console.log($scope.hiragana);
 			$window.location.reload();
 
 		} else if (navLink === 'sound-game') {
@@ -405,10 +407,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 			console.log('word game!');
 
-			$scope.createNewGame('hiragana-sound');
-    		console.log('Here is the result of creating a new game using the factory: ');
-    		console.log($scope.currentGame);
-    		console.log($scope.currentGame.guessed);
     		$scope.getGames();
     		console.log('Here is the result of getting the games');
 
@@ -417,13 +415,11 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	}; //end processGameMode function
 
 	function playSound(kanaObj) {
-		console.log('This is inside the playSound function (before). testSound is: ');
+		console.log('TestSound is: ');
 		console.log(testSound);
 		audio = new Audio(kanaObj.sound);
 		audio.load();
 		audio.play();
-		console.log('This is inside the playSound function (after). testSound is: ');
-		console.log(testSound);
 	};
 
 	function getUnguessed(guessedArray) {
