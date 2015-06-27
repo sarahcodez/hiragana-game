@@ -9,12 +9,12 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, $route, $routeParams, dataService, httpService, Game) {
+app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, $window, $route, $routeParams, dataService, httpService, Game) {
 	
 	var gameMode = 'home';
-	var audio; //kana buttons
-	var guessedItems;
-	var testSound;
+	var audio = {}; //kana buttons
+	var guessedItems = [];
+	var testSound = {};
 	var reviewDeck = [];
 	var masteryDeck = [];
 
@@ -384,6 +384,13 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 			$scope.panelImageShow = false;
 			$scope.gameStatsShow = false;
+			testSound = {};
+
+			// // $scope.$apply(function() {
+			// // 	$scope.hiragana = dataService.hiragana;
+			// // });
+			// console.log($scope.hiragana);
+			$window.location.reload();
 
 		} else if (navLink === 'sound-game') {
 
