@@ -8,7 +8,7 @@ app.config(function ($routeProvider) {
 		});
 });
 
-app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
+app.controller('userStatsCtrl', function ($scope, $location, dataService, httpService) {
 
 	//if the user was already logged in when clicked saved game, game is saved and there should be a gameId;
 	//if there is no gameId but there is a gameObj, add it (user just logged in);
@@ -45,6 +45,10 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 	$scope.hiraganaSoundScore = 0;
 
 	$scope.hiraganaSoundGames = [];
+
+	$scope.goHome = function() {
+		$location.path('/');
+	}
 
 	function updateUser(newUserObj) {
 

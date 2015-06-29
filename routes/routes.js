@@ -59,7 +59,8 @@ module.exports = function (passport) {
 
 	/* Handle Registration POST */
 	router.post('/signup', passport.authenticate('signup'), function (req, res) {
-		res.json("Succesfully signed up");
+		//res.json("Succesfully signed up");
+		res.send({ id: req.user.id, username: req.user.username, games: req.user.games, message: "Successfully logged in" });
 	});
 
 	/* PUT ALL YOUR OTHER ROUTES HERE */
