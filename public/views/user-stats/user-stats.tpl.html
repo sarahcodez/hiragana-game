@@ -1,38 +1,23 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Final Project</title>
-
-	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
- 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</head>
-<body> -->
 
 	<div class="container">
 		<div class="row header">
 			<div class="col-xs-12">
 				<h2>{{userName}}</h2>
-				<button ng-click="getUser()">Test!</button>
 			</div>	
 		</div>
 		<div class="row main-stats">
 			<div class="col-xs-6 text-left">
-				<h3>Total Score: 70</h3>
+				<h3>Total Score: {{totalScore}}</h3>
 			</div>
 			<div class="col-xs-6 text-right">
-				<h3>Status: Beginner</h3>
+				<h3>Status: {{userStatus}}</h3>
 			</div>
 		</div>
 		<div class="row">	
 			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h4>Hiragana - Sound</h4>
-					<h5>Score: 70</h5>
+					<h5>Score: {{hiraganaSoundScore}}</h5>
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped">
@@ -41,86 +26,26 @@
 					        <th>Games</th>
 					        <th>Mastered</th>
 					        <th>Missed</th>
-					        <th>Review Missed for More Points</th>
+					        <!-- <th>Review Missed for More Points</th> -->
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr ng-repeat="game in userGames">
+					      <tr ng-repeat="game in hiraganaSoundGames">
 					        <td>
-					        	<p>Game 3</p>
-					        	<p>{{game.date}}</p>
+					        	<p>{{game.date.substr(0, 10) + ' ' + game.date.substr(11, 5)}}</p>
 					        </td>
 					        <td>{{game.masteryDeck.length}}</td>
 					        <td>{{game.reviewDeck.length}}</td>
-					        <td><button>Review</button></td>
+					       <!--  <td><button>Review</button></td> -->
 					      </tr>
 					    </tbody>
 					 </table>
 				</div>
 			</div>
 		</div>
-		<div class="row">	
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h4>Hiragana - Sounds</h4>
-					<h5>Score: 70</h5>
-				</div>
-				<div class="panel-body">
-					<table class="table table-striped">
-					    <thead>
-					      <tr>
-					        <th>Games</th>
-					        <th>Mastered</th>
-					        <th>Missed</th>
-					        <th>Review Missed for More Points</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <td>
-					        	<p>Game 3</p>
-					        	<p>6/28/2015</p>
-					        </td>
-					        <td>35</td>
-					        <td>11</td>
-					        <td><button>Review</button></td>
-					      </tr>
-					      <tr>
-					        <td>
-					        	<p>Game 2</p>
-					        	<p>6/22/2015</p>
-					        </td>
-					        <td>25</td>
-					        <td>21</td>
-					        <td><button>Review</button></td>
-					      </tr>
-					      <tr>
-					        <td>
-					        	<p>Game 1</p>
-					        	<p>6/20/2015</p>
-					        </td>
-					        <td>10</td>
-					        <td>36</td>
-					        <td><button>Review</button></td>
-					      </tr>
-					    </tbody>
-					 </table>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-		    <div class="panel panel-info">
-		      	<div class="panel-heading">Panel Header</div>
-		      	<div class="panel-body">Panel Content</div>
-		    </div>
-		</div> <!-- End body row -->
 		<div class="row">
 			<div class="panel panel-info">
 				<div class="panel-body user-message">Earn 500 points to unlock more games!</div>
 			</div>
 		</div>
 	</div> <!-- End container -->
-
-<!-- </body>
-
-</html> -->

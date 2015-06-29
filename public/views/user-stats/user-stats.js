@@ -32,21 +32,19 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 	var gameIds = userObj.games;
 	var userGames = [];
 
-
 	$scope.page = 'User Stats';
 
 	$scope.user = {};
 
 	$scope.userName = userObj.username;
 
-	$scope.userGames = userGames.sort(function(a,b){
-  // Turn your strings into dates, and then subtract them
-  // to get a value that is either negative, positive, or zero.
-  return new Date(b.date) - new Date(a.date);
-});
-;
+	$scope.userStatus = 'Beginner';
 
-	$scope.gameType = '';
+	$scope.totalScore = 0;
+
+	$scope.hiraganaSoundScore = 0;
+
+	$scope.hiraganaSoundGames = [];
 
 	function updateUser(newUserObj) {
 
@@ -73,8 +71,19 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 			httpService.getGame(gameId).then(function (game) {
 
-				console.log(game);
-				userGames.push(game);
+				var points = game.masteryDeck.length;
+				console.log(points);
+
+				userGames.unshift(game);
+				$scope.totalScore += points;
+
+				if (game.type === 'hiragana-sound') {
+					$scope.hiraganaSoundGames.unshift(game);
+					$scope.hiraganaSoundGames.sort(function(a,b){
+						return new Date(b.date) - new Date(a.date);
+					});
+					$scope.hiraganaSoundScore += points;
+				}
 
 			}, function (err) {
 				console.log(err);
@@ -82,34 +91,19 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 		}
 
-		// return $scope.userGames;
+	
+		if ($scope.totalScore < 500) {
+			$scope.userStatus = 'Beginner';
+		} else if ($scope.totalScore > 499 && $scope.totalScore < 1000) {
+			$scope.userStatus = 'Intermediate';
+		} else if ($scope.totalScore > 999) {
+			$scope.userStatus = 'Master';
+		} else {
+			$scope.userStatus = 'Beginner';
+		}
+
 
 	}
-
-	// function getGames (gameIdArray) {
-
-	// 	var gameIds = gameIdArray;
-
-	// 	var gameData = [];
-
-	// 	for(var i = 0; i < gameIds.length; i++) {
-
-	// 		var gameId = gameIds[i];
-	// 		console.log(gameId);
-
-	// 		httpService.getGame(gameId).then(function(data) {
-
-	// 			console.log(data);
-	// 			gameData.push(data);
-
-	// 		}, function(err) {
-	// 			console.log(err);
-	// 		});
-
-	// 	}
-
-	// 	return gameData;
-	// }
 
 
 	if ( gameId.length === 0 && gameProp > 0 ) {
@@ -163,5 +157,6 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 		getUserGames(gameIds);
 
 	}
+
 
 });
