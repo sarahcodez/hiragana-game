@@ -1,8 +1,8 @@
 
 <div class="container">
 	<div class="row">
-        <div class="col-sm-1">
-            <a href="/#/">Home</a>
+        <div class="col-sm-2 site-logo">
+            <a href="/#/"><span class="red">a</span>・<span class="orange">i</span>・<span class="green">u</span>・<span class="blue">e</span>・<span class="purple">o</span></a>
         </div>
         <div class="col-sm-1">
             <a href="/#/login" ng-hide="loggedIn">Login</a>
@@ -10,7 +10,7 @@
         <div class="col-sm-1 text-center">
             <a href="/#/user-stats" ng-show="loggedIn">Stats</a>
         </div>
-        <div class="col-sm-3 col-sm-offset-5">
+        <div class="col-sm-3 col-sm-offset-4">
             <p ng-show="loggedIn">Logged in as {{userName}}</p>
         </div>
         <div class="col-sm-1">
@@ -18,7 +18,9 @@
         </div>
     </div>
 	<div class="row top-nav">
-		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<button type="button" class="btn btn-default help-button" title="Help" data-toggle="modal" data-target="#helpModal">?</button>
+		</div>
 		<div class="col-sm-4 outer-panel"> <!-- Changed "panel" class to "outer-panel" because "panel" already specified in Boostrap -->
 			<div class="center-block inner-panel" ng-style="{'background-image': 'url(' + backgroundImg + ')' }">
 				<img ng-show="panelImageShow" class="img-responsive" ng-class="transparentClass" ng-src="{{panelImage}}" />
@@ -88,7 +90,36 @@
 	</div>
 </div> <!-- End container (main page content) -->
 
-<div> <!-- Start modals -->
+<!-- Vanilla Boostrap Modal -->
+<div class="modal fade" id="helpModal" role="dialog">
+	<div class="modal-dialog">
+
+	  <!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+	      		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	      		<h4 class="modal-title">Hiragana Cheat Sheet</h4>
+			</div>
+	    	<div class="modal-body">
+	    		<figure>
+	    			<img class="img img-responsive" src="images/Table_hiragana.svg" alt="Hiragana Chart" />
+	    			<figcaption>Source: <a href="https://en.wikipedia.org/wiki/File:Table_hiragana.svg" target="_blank">Wikimedia Commons</a>. Based on an image by  Karine WIDMER.</figcaption>
+				</figure>
+				<div>
+		     		<p>Hiragana represents all the Japanese sounds, like an alphabet. This webpage replicates the 'a-i-u-e-o' toys Japanese kids use to learn their abc's (a-i-u-e-o's).<p>
+		     		<p>In the "Home" mode you can explore all the sounds. The traditional order is top to bottom, left to right, starting with the red column ('a-i-u-e-o, ka-ki-ku-ke-ko...').</p>
+		     		<p>Then, test your knowledge with the "Sound Game" and save the results to earn points and unlock more games!</p>
+	     		</div>
+	    	</div>
+	    	<div class="modal-footer">
+	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	    	</div>
+	 	</div>
+	  
+	</div>
+</div>
+
+<div> <!-- Start Angular Bootstrap Modals -->
 	<script type="text/ng-template" id="soundGameModal.html"> 
 
 		<div class="modal-header">

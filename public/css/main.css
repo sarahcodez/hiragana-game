@@ -7,8 +7,57 @@ table {
     width:100%;
 }
 
+figure {
+	margin-bottom: 10px;
+	font-size: 0.8em;
+}
+
 .site-logo {
 	font-family: 'Comfortaa', cursive;
+	text-decoration: none;
+}
+
+.site-logo a:link {
+    text-decoration: none;
+}
+
+.site-logo a:visited {
+    text-decoration: none;
+}
+
+.site-logo a:hover {
+    text-decoration: underline;
+}
+
+.site-logo a:active {
+    text-decoration: underline;
+}
+
+.red {
+	color: #FF0000;
+}
+
+.orange {
+	color: #FF9933;
+}
+
+.green {
+	color: #33CC33;
+}
+
+.blue {
+	color: #00CCFF;
+}
+
+.purple {
+	color: #CC66FF;
+}
+
+.help-button {
+	float: right;
+	margin-top: 15px;
+	border: 2px solid lightgrey;
+	border-radius: 15px;
 }
 
 .outer-panel {
@@ -139,7 +188,7 @@ table {
 }
 
 .set-9 button {
-	background-color: #CC66FF;;
+	background-color: #CC66FF;
 }
 
 .set-10 button {
