@@ -7,6 +7,10 @@ table {
     width:100%;
 }
 
+.site-logo {
+	font-family: 'Comfortaa', cursive;
+}
+
 .outer-panel {
 	height: 200px;
 	margin-top: 15px;

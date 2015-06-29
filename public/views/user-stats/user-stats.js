@@ -109,6 +109,7 @@ app.controller('userStatsCtrl', function ($scope, $location, dataService, httpSe
 		}
 
 
+
 	}
 
 
@@ -143,6 +144,8 @@ app.controller('userStatsCtrl', function ($scope, $location, dataService, httpSe
 
 			dataService.gameId = "";
 			gameId = "";
+			dataService.gameObj = {};
+			gameObj = {};
 
 		}, function (err) {
 
@@ -157,6 +160,12 @@ app.controller('userStatsCtrl', function ($scope, $location, dataService, httpSe
 
 		updateUser(userObj);
 		getUserGames(gameIds);
+
+		dataService.gameId = "";
+		gameId = "";
+		dataService.gameObj = {};
+		gameObj = {};
+
 
 	} else { //no new game or gameId for updating
 
