@@ -29,6 +29,7 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 	console.log(gameProp);
 	console.log(gameId.length);
 
+	var gameIds = userObj.games;
 	var userGames = [];
 
 
@@ -127,12 +128,21 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 		}).then(function (newUser) { //updateUser
 
-			var arrayOfGames = newUser.games;
+			gameIds = newUser.games;
 			console.log(newUser);
 			updateUser(newUser);
-			console.log(arrayOfGames);
-			getUserGames(arrayOfGames);
+			console.log(gameIds);
+			getUserGames(gameIds);
 			console.log($scope.userGames);
+
+		}, function (err) {
+
+			console.log(err);
+
+		}).then(function () {
+
+			dataService.gameId = "";
+			gameId = "";
 
 		}, function (err) {
 
@@ -140,6 +150,18 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 		});
 
-	} 
+	} else if (gameId.length > 0) {
+
+		userObj.games.push(gameId);
+		gameIds = userObj.games;
+
+		updateUser(userObj);
+		getUserGames(gameIds);
+
+	} else { //no new game or gameId for updating
+
+		getUserGames(gameIds);
+
+	}
 
 });

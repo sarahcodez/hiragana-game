@@ -29,7 +29,8 @@ app.controller('loginCtrl', function ($scope, $location, authService, dataServic
 
 	var failedLogin = function (err) {
 		console.log(err);
-		$scope.message = err;
+		$scope.message = 'Don\'t have an account yet? Click \"Create New Account\" below.';
+		//$scope.message = err;
 		$scope.messageClass = 'danger';
 	};
 });
