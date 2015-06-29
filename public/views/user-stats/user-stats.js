@@ -29,6 +29,8 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 	console.log(gameProp);
 	console.log(gameId.length);
 
+	var userGames = [];
+
 
 	$scope.page = 'User Stats';
 
@@ -36,7 +38,12 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 	$scope.userName = userObj.username;
 
-	$scope.userGames = [];
+	$scope.userGames = userGames.sort(function(a,b){
+  // Turn your strings into dates, and then subtract them
+  // to get a value that is either negative, positive, or zero.
+  return new Date(b.date) - new Date(a.date);
+});
+;
 
 	$scope.gameType = '';
 
@@ -66,7 +73,7 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 			httpService.getGame(gameId).then(function (game) {
 
 				console.log(game);
-				$scope.userGames.push(game);
+				userGames.push(game);
 
 			}, function (err) {
 				console.log(err);
@@ -134,39 +141,5 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 		});
 
 	} 
-
-	// userObj.games.push() to games array and update User
-
-	//var userGameIds = []; //558cb314ca1595cb165e1f81
-
-	//var userId = '558cb314ca1595cb165e1f80';
-
-	// $scope.getUser = function () {
-
-	// 	httpService.getUser(userId).then(function (data) {
-
-	// 		console.log(data);
-	// 		console.log(data.games);
-	// 		$scope.user = data; //may not need this
-	// 		userGameIds = data.games;
-	// 		console.log($scope.user);
-	// 		console.log(userGameIds);
-
-	// 		$scope.userName = data.username;
-
-	// 		return data.games;
-
-	// 	}, function(err) {
-
-	// 		console.log(err);
-
-	// 	}).then(function(games) {
-
-	// 		console.log(games);
-	// 		$scope.userGames = getGames(games);
-
-	// 	});
-
-	// };
 
 });
