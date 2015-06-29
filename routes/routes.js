@@ -71,20 +71,41 @@ module.exports = function (passport) {
 	router.post('/game', isAuthenticated, function (req, res) {
 
 		var newGame = new Game(req.body);
-		newGame.save(function(err, savedItem) {
+		newGame.save(function (err, savedItem) {
 
 			if(err) {
 				res.send({ error: err });
 
 			} else {
 
-				res.send({
-				msg: "Success",
-				body: savedItem
-				});
+				res.send(savedItem);
 
 			}
 			
+		});
+	});
+
+	router.put('/user/:id', isAuthenticated, function (req, res) {
+		var id = req.params.id;
+		User.findOne({_id: id}, function (err, user) {
+			for (var key in req.body) {
+				user[key] = req.body[key];
+			}
+			user.save();
+			res.send(user);
+		});
+	});
+
+	router.get('/game/:id', isAuthenticated, function (req, res) {
+		var id = req.params.id;
+		Game.findOne({_id: id}, function (err, game) {
+
+			if(err) {
+				res.status(401).send('Error looking up games');
+			} else {
+				res.send(game);
+			}
+
 		});
 	});
 
@@ -97,19 +118,6 @@ module.exports = function (passport) {
 				//console.log('users', users);
 				res.send(games);
 				console.log(games);
-			}
-
-		});
-	});
-
-	router.get('/game/:id', function(req, res) {
-		var id = req.params.id;
-		Game.findOne({_id: id}, function(err, game) {
-
-			if(err) {
-				res.status(401).send('Error looking up games');
-			} else {
-				res.send(game);
 			}
 
 		});
@@ -182,16 +190,6 @@ module.exports = function (passport) {
 		});
 	});
 
-	router.put('/user/:id', function(req, res) {
-		var id = req.params.id;
-		User.findOne({_id: id}, function(err, user) {
-			for (var key in req.body) {
-				user[key] = req.body[key];
-			}
-			user.save();
-			res.send(user);
-		});
-	});
 
 	router.delete('/user/:id', function(req, res) {
 		var id = req.params.id;

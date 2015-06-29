@@ -18,10 +18,9 @@ app.service('httpService', function($http, $q) {
 		return deferred.promise;
 	}; //end addGame
 
-	this.getGames = function() {
+	this.updateUser = function(id, user) {
 		var deferred = $q.defer();
-		$http.get(BASE_URL + URL_GAME).success(function(data) {
-			console.log(data);
+		$http.put(BASE_URL + URL_USER + '/' + id, user).success(function(data) {
 			deferred.resolve(data);
 		}).error(function (err) {
 			console.log(err);
@@ -29,7 +28,7 @@ app.service('httpService', function($http, $q) {
 		});
 
 		return deferred.promise;
-	}; //end getGames
+	};
 
 	this.getGame = function(id) {
 		var deferred = $q.defer();
@@ -43,6 +42,20 @@ app.service('httpService', function($http, $q) {
 
 		return deferred.promise;
 	}; //end getGame
+
+	this.getGames = function() {
+		var deferred = $q.defer();
+		$http.get(BASE_URL + URL_GAME).success(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function (err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+		return deferred.promise;
+	}; //end getGames
+
 
 	//need a getUser (single) function
 

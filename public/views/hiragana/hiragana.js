@@ -11,13 +11,15 @@ app.config(function ($routeProvider) {
 
 app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, $window, $route, $routeParams, dataService, httpService, Game) {
 	
+	console.log('Log in status: ' + dataService.loggedIn);
+
 	var gameMode = 'home';
 	var audio = {}; //kana buttons
 	var guessedItems = [];
 	var testSound = {};
 	var reviewDeck = [];
 	var masteryDeck = [];
-	var gameId = dataService.gameId;
+	//var gameId = dataService.gameId;
 
 	var correctSound = new Audio("audio/correct_guess.wav");
 	var incorrectSound = new Audio("audio/incorrect_guess.wav");
@@ -89,23 +91,12 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 		httpService.addGame($scope.currentGame).then(function (data) {
 
-			console.log(data.body);
+			console.log('first add Game function says data is: ');
+			console.log(data);
 
-			return data.body;
-
-		}, function (err) {
-
-			console.log(err);
-
-		}).then(function(body) {
-
-			console.log('second function worked!');
-			gameId = body._id;
-			dataService.gameId = gameId;
-			console.log('addGame function says gameId is: ' + gameId);
+			dataService.gameId = data._id;
 			console.log('addGame function says dataService.gameId is ' + dataService.gameId);
 			$location.path('/user-stats');
-			return gameId;
 
 		}, function (err) {
 
@@ -137,6 +128,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	//Factory Code end
 
+	//$scope.hiragana = [];
 	$scope.hiragana = dataService.hiragana;
 
 	$scope.playSoundGame = false;
@@ -426,20 +418,21 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	$scope.processGameMode = function(navLink){
 
+		$scope.panelImageShow = false;
+		$scope.gameStatsShow = false;
+		testSound = {};
+		$scope.hiragana = dataService.hiragana;
 		gameMode  = navLink;
 		dataService.gameObj = {}; //may not need this later if refresh, etc.
 
 		if(navLink === 'home') {
 
-			$scope.panelImageShow = false;
-			$scope.gameStatsShow = false;
-			testSound = {};
 
 			$window.location.reload();
 
 		} else if (navLink === 'sound-game') {
 
-			$scope.panelImageShow = false;
+			//$scope.panelImageShow = false;
 			//$scope.gameStatsShow = true;
 			$scope.progress = 0;
 			$scope.progressLabel = 0;

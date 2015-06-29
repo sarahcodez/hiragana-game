@@ -18,9 +18,9 @@ app.controller('loginCtrl', function ($scope, $location, authService, dataServic
 	};
 
 	var onLogin = function (data) {
-		dataService.userId = data.id; 
-		//check if there is a completed game Obj in data service
-		//if so, save game Obj and pass id to data service
+		dataService.userId = data.id;
+		dataService.loggedIn = true;
+		dataService.userObj = data;
 		$location.path('/user-stats');
 		console.log(data);
 		//$scope.message = data.message;
