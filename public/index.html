@@ -13,9 +13,11 @@
 </head>
 <body ng-app="main"> <!-- changed name of app from 'hiragana' to 'main'. sub-apps will be given names like main.hiragana and main.userstats -->
 
-	<a href="/#/home">Home</a>
-	<a href="/#/sound-game">Sound Game</a>
+	<a href="/#/hiragana">Home</a>
+	<a href="/#/login">Login</a>
+	<a href="/#/signup">Sign Up</a>
 	<a href="/#/user-stats">User Stats</a>
+	<a href="/signout">Log Out</a>
 
 	<ng-view></ng-view>
 	
@@ -34,8 +36,11 @@
 	<script src="main.js"></script>
 	<script src="services/data-service.js"></script>
 	<script src="services/http-service.js"></script>
+	<script src="services/authservice.js"></script>
 	<script src="factories/game-factory.js"></script>
 	<script src="views/hiragana/hiragana.js"></script>
+	<script src="views/login/login.js"></script>
+	<script src="views/signup/signup.js"></script>
 	<script src="views/user-stats/user-stats.js"></script>	
 </body>
 </html>

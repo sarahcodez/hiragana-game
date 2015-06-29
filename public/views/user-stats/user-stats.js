@@ -22,10 +22,12 @@ app.controller('userStatsCtrl', function ($scope, dataService, httpService) {
 
 	var gameId = dataService.gameId;
 	console.log(gameId);
+	var userId = dataService.userId;
+	console.log(userId);
 
 	//var userGameIds = []; //558cb314ca1595cb165e1f81
 
-	var userId = '558cb314ca1595cb165e1f80';
+	//var userId = '558cb314ca1595cb165e1f80';
 
 	$scope.getUser = function () {
 

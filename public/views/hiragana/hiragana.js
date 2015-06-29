@@ -68,11 +68,31 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	};
 
 	//*****Add this to gameOver modal and see if can console.log game Id when save button is pushed from modal
-	$scope.addGame = function(callback) {
+
+	function tempSaveGame () {
+		var date = new Date();
+		$scope.currentGame.date = date;
+		dataService.gameObj = $scope.currentGame;
+		console.log('tempSaveGame function says dataService.gameObj is: ');
+		console.log(dataService.gameObj);
+	}
+
+	$scope.addGame = function() {
+
+		console.log(dataService.loggedIn);
+
+		if(!dataService.loggedIn) {
+
+			$location.path('/login');
+
+		} else {
 
 		httpService.addGame($scope.currentGame).then(function (data) {
+
 			console.log(data.body);
+
 			return data.body;
+
 		}, function (err) {
 
 			console.log(err);
@@ -84,17 +104,20 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 			dataService.gameId = gameId;
 			console.log('addGame function says gameId is: ' + gameId);
 			console.log('addGame function says dataService.gameId is ' + dataService.gameId);
+			$location.path('/user-stats');
 			return gameId;
+
+		}, function (err) {
+
+			console.log(err);
 
 		});
 
-		// .then(function(gameId, callback) {
-
-		// 	callback(gameId);
-
-		// });
-
 		$scope.currentGame = {};
+
+
+		}
+
 	};
 
 	//Factory Code start -- for testing: not yet integrated
@@ -213,11 +236,12 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
   		var modalInstance = $modal.open({
 	      animation: true,
 	      templateUrl: 'gameOverModal.html',
-	      controller: function ($scope, $modalInstance, dataService, httpService, addGame, currentGame) {
+	      controller: function ($scope, $modalInstance, dataService, httpService, tempSaveGame, addGame, currentGame) {
 
 	      		$scope.currentGame = currentGame;
 	      		$scope.reviewNum = currentGame.reviewDeck.length;
 	      		$scope.masteryNum = currentGame.masteryDeck.length;
+	      		tempSaveGame();
 	      		// var gameId = gameId;
 
 	      		$scope.ok = function () {
@@ -233,6 +257,9 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	      	addGame: function() {
 	      		return $scope.addGame;
 	      	},
+	      	tempSaveGame: function() {
+	      		return tempSaveGame;
+	      	},
 	      	currentGame: function() {
 	      		return $scope.currentGame;
 	      	},
@@ -243,8 +270,9 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
     	});
 
 	    modalInstance.result.then(function (addGame) {
+	    	//tempSaveGame();
 	    	addGame();
-	    	$location.path('/user-stats');
+	    	//$location.path('/user-stats');
 	    }, function () {
 	    	$window.location.reload();
 	      $log.info('Modal dismissed at: ' + new Date());
@@ -399,6 +427,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	$scope.processGameMode = function(navLink){
 
 		gameMode  = navLink;
+		dataService.gameObj = {}; //may not need this later if refresh, etc.
 
 		if(navLink === 'home') {
 

@@ -11,6 +11,7 @@ app.service('httpService', function($http, $q) {
 		$http.post(BASE_URL + URL_GAME, game).success(function(data) {
 			deferred.resolve(data);
 		}).error(function (err) {
+			console.log(err);
 			deferred.reject(err);
 		});
 

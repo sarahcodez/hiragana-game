@@ -20,10 +20,12 @@ var UserSchema = mongoose.Schema({
 	username: String,
 	password: String,
 	email: String,
+	firstName: String,
+	lastName: String,
 	games: [{type: mongoose.Schema.Types.ObjectId, ref: 'game'}] //type of reference is the unique mongoose Object Id --use that to reference and connect
 });
 
 exports.Game = mongoose.model('game', GameSchema); //check
 exports.User = mongoose.model('user', UserSchema);
 
-// when include in file, set it equal to variable, then refer to schema as XXX.users, etc.
+// when include in file, set it equal to variable, then refer to schema as XXX.user, etc.

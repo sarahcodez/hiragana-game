@@ -1,4 +1,4 @@
-var app = angular.module('main', ['ngRoute', 'main.hiragana', 'main.userstats']);
+var app = angular.module('main', ['ngRoute', 'main.hiragana', 'main.login', 'main.signup', 'main.userstats']);
 
 app.config(function ($routeProvider) {
 	$routeProvider
