@@ -23,7 +23,7 @@ table {
 	background-size: 200px 200px;
 }
 
-.panel img {
+.outer-panel img {
 	max-width: 200px;
 	margin: 0 auto;
 	position: absolute;

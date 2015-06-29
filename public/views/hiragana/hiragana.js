@@ -218,7 +218,8 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	      console.log('Modal success!')
 	    }, function () {
-	      $log.info('Modal dismissed at: ' + new Date());
+	    	$location.path('/');
+	      	$log.info('Modal dismissed at: ' + new Date());
 	    });
 
   	}
@@ -266,7 +267,10 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	    	addGame();
 	    	//$location.path('/user-stats');
 	    }, function () {
-	    	$window.location.reload();
+	    	dataService.gameObj = {}; 
+			console.log(dataService.gameObj);
+			$location.path('/');
+	    	//$window.location.reload();
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
 
@@ -362,14 +366,16 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 							finishSound.play();
 
-							// masteryDeck = $scope.hiragana.filter(function(obj) {
-							// 	return reviewDeck.indexOf(obj) == -1;
-							// });
+							for (var i = 0; i < $scope.hiragana.length; i++) {
+								$scope.hiragana[i].disabled = false;			
+							}
 
-							// console.log('Mastery Deck: ');
-							// console.log(masteryDeck);
-							// console.log('Review Deck: ');
-							// console.log(reviewDeck);
+							$scope.panelImageShow = false;
+							$scope.gameStatsShow = false;
+							testSound = {};
+							guessedItems = [];
+							$scope.transparentClass = [];
+
 							gameOver();
 
 						} else { //Correct but haven't finished round
@@ -421,14 +427,26 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 		$scope.panelImageShow = false;
 		$scope.gameStatsShow = false;
 		testSound = {};
-		$scope.hiragana = dataService.hiragana;
 		gameMode  = navLink;
 		dataService.gameObj = {}; //may not need this later if refresh, etc.
+		guessedItems = [];
+		$scope.transparentClass = [];
+
+		for (var i = 0; i < $scope.hiragana.length; i++) {
+			//console.log('inside for loop');
+			//console.log($scope.hiragana[i]);
+			$scope.hiragana[i].disabled = false;			
+		}
+
+		console.log('is disabled?');
+		console.log($scope.hiragana);
+		console.log('dataService: ');
+		console.log(dataService.hiragana);
 
 		if(navLink === 'home') {
 
 
-			$window.location.reload();
+			//$window.location.reload();
 
 		} else if (navLink === 'sound-game') {
 
