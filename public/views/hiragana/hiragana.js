@@ -21,9 +21,9 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	var masteryDeck = [];
 	//var gameId = dataService.gameId;
 
-	var correctSound = new Audio("audio/correct_guess.wav");
-	var incorrectSound = new Audio("audio/incorrect_guess.wav");
-	var finishSound = new Audio("audio/win_music.wav");
+	var correctSound = new Audio("audio/correct-guess-trimmed.wav");
+	var incorrectSound = new Audio("audio/incorrect-guess-trimmed.wav");
+	var finishSound = new Audio("audio/win-music-trimmed.wav");
 
 	var unguessedSounds;
 	var reviewMode = false;
@@ -32,46 +32,49 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	$scope.loggedIn = dataService.loggedIn;
 	$scope.userName = dataService.userObj.username;
 
-	//API functions -- may not need all here
+	//Factory Code start
 
-	$scope.users = [];
-	$scope.games = [];
-	//$scope.gameToSave = {};
-	$scope.userToSave = {};
+	$scope.currentGame = null;
 
-	$scope.getUsers = function () {
+    $scope.createNewGame = function(typeString) {
+        $scope.currentGame = new Game();
+        $scope.currentGame.type = typeString;
+    };
 
-		httpService.getUsers().then(function (data) {
-			$scope.users = data;
-		}, function(err) {
-			console.log(err);
-		});
+	//Factory Code end
 
+	$scope.hiragana = dataService.hiragana;
+
+	$scope.playSoundGame = false;
+
+	$scope.panelImage = '';
+	$scope.panelImageShow = false;
+	$scope.transparentClass = [];
+	$scope.backgroundImg = '';
+
+	$scope.panelMessage = '';
+	$scope.panelMessageShow = false;
+
+	$scope.audioIcon = 'images/myspeakericon.png';
+	$scope.highlightClass = [];
+
+	$scope.gameStatsShow = false;
+
+	$scope.roundNumber = 1;
+	$scope.roundGuesses = 0;
+	$scope.roundTotal = 15;
+	$scope.progress = 0;
+	$scope.progressLabel = 0;
+
+	$scope.playTestSound = function(guessedArray) {
+		var guessedSounds = guessedArray;
+		unguessedSounds = getUnguessed(guessedSounds);
+		testSound = getRandSound(unguessedSounds);
+		$scope.applyHighlight();
+		playSound(testSound);
 	};
 
-	$scope.createUser = function() {
-
-		httpService.createUser($scope.userToSave).then(function (data) {
-			console.log(data);
-		}, function (err) {
-			console.log(err);
-		});
-
-		$scope.userToSave = {};
-	};
-
-	$scope.getGames = function() {
-
-		httpService.getGames().then(function (data) {
-			console.log(data);
-			//$scope.games = data;
-		}, function(err) {
-			console.log(err);
-		});
-
-	};
-
-	//*****Add this to gameOver modal and see if can console.log game Id when save button is pushed from modal
+	//Functions passed to open (Game Intro) modal
 
 	function tempSaveGame () {
 		var date = new Date();
@@ -113,47 +116,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 	};
 
-	//Factory Code start -- for testing: not yet integrated
-
-	$scope.currentGame = null;
-
-    $scope.createNewGame = function(typeString) {
-        $scope.currentGame = new Game();
-        $scope.currentGame.type = typeString;
-    };
-
-    //Test under kotoba-game:
-
-    // $scope.createNewGame('hiragana-sound');
-    // console.log('Here is the result of creating a new game using the factory: ');
-    // console.log($scope.currentGame);
-
-	//Factory Code end
-
-	//$scope.hiragana = [];
-	$scope.hiragana = dataService.hiragana;
-
-	$scope.playSoundGame = false;
-
-	$scope.panelImage = '';
-	$scope.panelImageShow = false;
-	$scope.transparentClass = [];
-	$scope.backgroundImg = '';
-
-	$scope.panelMessage = '';
-	$scope.panelMessageShow = false;
-
-	$scope.audioIcon = 'images/myspeakericon.png';
-	$scope.highlightClass = [];
-
-	$scope.gameStatsShow = false;
-
-	$scope.roundNumber = 1;
-	$scope.roundGuesses = 0;
-	$scope.roundTotal = 15;
-	$scope.progress = 0;
-	$scope.progressLabel = 0;
-
 	$scope.startGame = function(result) {
 		
 		if(result === true) {
@@ -176,14 +138,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 					
 				}, 2000);
 		}
-	};
-
-	$scope.playTestSound = function(guessedArray) {
-		var guessedSounds = guessedArray;
-		unguessedSounds = getUnguessed(guessedSounds);
-		testSound = getRandSound(unguessedSounds);
-		$scope.applyHighlight();
-		playSound(testSound);
 	};
 
 	//Open a modal window to provide an intro and start button for the Sounds Game
