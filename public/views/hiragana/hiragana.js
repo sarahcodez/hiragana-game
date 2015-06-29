@@ -29,6 +29,8 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	var reviewMode = false;
 
 	$scope.page = 'Hiragana';
+	$scope.loggedIn = dataService.loggedIn;
+	$scope.userName = dataService.userObj.username;
 
 	//API functions -- may not need all here
 
@@ -141,7 +143,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	$scope.panelMessage = '';
 	$scope.panelMessageShow = false;
 
-	$scope.audioIcon = 'images/audioicon.png';
+	$scope.audioIcon = 'images/myspeakericon.png';
 	$scope.highlightClass = [];
 
 	$scope.gameStatsShow = false;
@@ -319,7 +321,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 				$scope.currentGame.masteryDeck.push(kanaObj);
 				console.log($scope.currentGame.masteryDeck);
 				kanaObj.disabled = true;
-				$scope.panelImage = 'images/maru.png';
+				$scope.panelImage = 'images/green-maru.png';
 				$scope.panelImageShow = true;
 
 				$timeout(function() {
@@ -362,7 +364,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 						
 					correctSound.onended = function() { 
 
-						if (guessedItems.length === 2) { //Game Finished
+						if (guessedItems.length === 3) { //Game Finished
 
 							finishSound.play();
 
@@ -394,7 +396,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 			} else { //result === 'Incorrect'
 
-				$scope.panelImage = 'images/batsu.png';
+				$scope.panelImage = 'images/red-batsu.png';
 				$scope.panelImageShow = true;
 
 				$timeout(function() {
@@ -445,7 +447,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 
 		if(navLink === 'home') {
 
-
 			//$window.location.reload();
 
 		} else if (navLink === 'sound-game') {
@@ -460,9 +461,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 		} else if (navLink === 'word-game') {
 
 			console.log('word game!');
-
-    		$scope.getGames();
-    		console.log('Here is the result of getting the games');
 
 		}
 

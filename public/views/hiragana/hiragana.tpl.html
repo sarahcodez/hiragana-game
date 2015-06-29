@@ -1,5 +1,22 @@
 
 <div class="container">
+	<div class="row">
+        <div class="col-sm-1">
+            <a href="/#/">Home</a>
+        </div>
+        <div class="col-sm-1">
+            <a href="/#/login" ng-hide="loggedIn">Login</a>
+        </div>
+        <div class="col-sm-1 text-center">
+            <a href="/#/user-stats" ng-show="loggedIn">Stats</a>
+        </div>
+        <div class="col-sm-3 col-sm-offset-5">
+            <p ng-show="loggedIn">Logged in as {{userName}}</p>
+        </div>
+        <div class="col-sm-1">
+            <a href="/signout" ng-show="loggedIn">Log Out</a>
+        </div>
+    </div>
 	<div class="row top-nav">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4 outer-panel"> <!-- Changed "panel" class to "outer-panel" because "panel" already specified in Boostrap -->
@@ -24,11 +41,11 @@
 		</div>
 	</div>
 	<div class="row main">
-		<div class="well sidebar-nav col-sm-2 game-menu">
-			<ul class="nav nav-pills game-list">
-				<li><button ng-click="processGameMode('home')">Home</button></li>
-				<li><button ng-click="processGameMode('sound-game')">Sound Game</button></li>
-				<li><button ng-click="processGameMode('word-game')">Word Game</button></li>
+		<div class="sidebar-nav col-sm-2 game-menu">
+			<ul class="nav game-list">
+				<li><button class="btn btn-sm btn-block btn-info text-center" ng-click="processGameMode('home')">Home</button></li>
+				<li><button class="btn btn-sm btn-block btn-info text-center" ng-click="processGameMode('sound-game')">Sound Game</button></li>
+				<!-- <li><button class="btn btn-sm btn-block btn-info text-center" ng-click="processGameMode('word-game')">Word Game</button></li> -->
 			</ul>
 		</div>
 		<div class="col-sm-1 buttons set-1">
@@ -60,8 +77,15 @@
 		</div>
 		<div class="col-sm-1 buttons set-10">
 			<button class="btn-block" ng-repeat="kana in hiragana" ng-disabled="kana.disabled" ng-if="$index > 42 && $index < 46" ng-click="kanaButtonClicked(kana)">{{kana.name}}</button>
-		</div>	
+		</div>
 	</div> <!-- End main row -->
+	<div class="row footer">
+		Special thanks to: 
+		<ul>
+			<li><a href="http://thejapanesepage.com/beginners/hiragana" target="_blank">The Japanese Page</a> for making the hiragana audio available</li>
+			<li><a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank">Wikimedia Commons</a> for the animated stroke order images, audio icon, and other images</li>
+		</ul>
+	</div>
 </div> <!-- End container (main page content) -->
 
 <div> <!-- Start modals -->
@@ -72,11 +96,11 @@
 		</div>
 
 		<div class="modal-body">
-			<p>See how many hiragana you can remember! After you press [Start Game!], a random hiragana sound will be played. (To hear the sound again, push the audio icon.) Guess which hiragana it is by pushing one of the hiragana buttons.</p>
+			<p>After you push Start Game, a random sound will be played. Guess which one it is by pushing one of the buttons below.</p>
 
-			<p>If you guess wrong, keep guessing until you get it right!</p>
+			<p>To hear the test sound again, push the audio button. If you guess wrong, keep trying until you get it right!</p>
 
-			<p>The game ends when you've guessed all the hiragana. Gambatte! (Good luck!)</p>
+			<p>Gambatte--good luck!</p>
 		</div>
 
 		<div class="modal-footer">

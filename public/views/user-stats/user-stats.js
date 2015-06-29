@@ -33,6 +33,8 @@ app.controller('userStatsCtrl', function ($scope, $location, dataService, httpSe
 	var userGames = [];
 
 	$scope.page = 'User Stats';
+	$scope.loggedIn = dataService.loggedIn;
+	$scope.userName = dataService.userObj.username;
 
 	$scope.user = {};
 

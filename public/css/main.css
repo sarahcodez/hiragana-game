@@ -66,12 +66,25 @@ table {
 }
 
 .game-menu {
-	background-color: lightyellow;
 	float: right;
+	border-radius: 15px;
+	border: 2px solid lightblue;
+	text-align: center;
+}
+
+.game-list ul {
+	text-align: center;
 }
 
 .game-list li {
-	margin: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+}
+
+.game-list button {
+	text-align: center;
+	white-space: normal
 }
 
 .btn-block {
@@ -132,6 +145,10 @@ table {
 /*Keep under main button styling or doesn't apply*/
 button[disabled] {
    background-color: #CCC;
+}
+
+.footer {
+    margin-top: 20px;
 }
 
 .user-message {
