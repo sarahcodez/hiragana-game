@@ -10,7 +10,7 @@ app.config(function ($routeProvider) {
 
 app.controller('userStatsCtrl', function ($scope, $location, dataService, httpService) {
 
-	//if the user was already logged in when clicked saved game, game is saved and there should be a gameId;
+	//if the user was already logged in when (s)he clicked Save Game, game is saved and there should be a gameId;
 	//if there is no gameId but there is a gameObj, add it (user just logged in);
 
 	console.log('Log in status: ' + dataService.loggedIn);

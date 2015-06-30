@@ -23,20 +23,11 @@ var isAuthenticated = function (req, res, next) {
 		return next();
 	} else {
 		// if the user is not authenticated then redirect him to the login page
-		//res.render('login');
-		//return false;
 		res.json('Unauthorized user. Please first log in.');
 	}
 }
 
 module.exports = function (passport) {
-
-
-	//My old code:
-
-	// router.get('/', function (req, res) {
-	// 	res.render('index.html');
-	// });
 
 	/* GET login or main page. Does NOT require authentication */
 	router.get('/', function (req, res) {
@@ -45,21 +36,13 @@ module.exports = function (passport) {
 		res.render('index.html');
 	});
 
-	// router.get('/login', function (req, res) {
-	// 	res.redirect('/login');
-	// });
-
 	/* Handle Login POST */
 	router.post('/login', passport.authenticate('login'), function (req, res) {
-		//res.send(data);
 		res.send({ id: req.user.id, username: req.user.username, games: req.user.games, message: "Successfully logged in" });
-		//res.json("Succesfully logged in"); //returned to login success function
-
 	});
 
 	/* Handle Registration POST */
 	router.post('/signup', passport.authenticate('signup'), function (req, res) {
-		//res.json("Succesfully signed up");
 		res.send({ id: req.user.id, username: req.user.username, games: req.user.games, message: "Successfully logged in" });
 	});
 
@@ -76,11 +59,8 @@ module.exports = function (passport) {
 
 			if(err) {
 				res.send({ error: err });
-
 			} else {
-
 				res.send(savedItem);
-
 			}
 			
 		});
@@ -116,7 +96,6 @@ module.exports = function (passport) {
 			if(err) {
 				res.status(401).send('Error looking up games');
 			} else {
-				//console.log('users', users);
 				res.send(games);
 				console.log(games);
 			}
@@ -161,7 +140,6 @@ module.exports = function (passport) {
 			if(err) {
 				res.status(401).send('Error looking up users');
 			} else {
-				//console.log('users', users);
 				res.send(users);
 				console.log(users);
 			}
@@ -215,7 +193,6 @@ module.exports = function (passport) {
 	router.get('/signout', function (req, res) {
 		req.logout();
 		res.redirect("/");
-		//res.json('Successfully logged out');
 	});
 
 	return router;
