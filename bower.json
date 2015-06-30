@@ -1,0 +1,30 @@
+{
+  "name": "hiragana-game",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sarahcodez/hiragana-game",
+  "authors": [
+    "sarahcodez <sarahgrahamx@gmail.com>"
+  ],
+  "description": "Game for learning Japanese phonetic system",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Japanese"
+  ],
+  "license": "GNU",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.13.0",
+    "angular-route": "~1.4.1",
+    "angular": "~1.4.1",
+    "bootstrap": "~3.3.5"
+  }
+}

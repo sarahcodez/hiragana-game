@@ -17,14 +17,3 @@ app.factory('Game', function() {
 });
 
 
-// app.controller('mainCtrl', function($scope, Game) {
-    
-//     $scope.currentGame = null;
-//     $scope.createNewGame = function() {
-//         $scope.currentGame = new Game();
-//         $scope.currentGame.type = "SOund Game"
-        
-//         $http.post('/games',$scope.currentGame);
-//     };
-    
-// });
