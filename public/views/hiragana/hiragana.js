@@ -19,7 +19,6 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 	var testSound = {};
 	var reviewDeck = [];
 	var masteryDeck = [];
-	//var gameId = dataService.gameId;
 
 	var correctSound = new Audio("audio/correct-guess-trimmed.wav");
 	var incorrectSound = new Audio("audio/incorrect-guess-trimmed.wav");
