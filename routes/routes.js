@@ -90,22 +90,22 @@ module.exports = function (passport) {
 		});
 	});
 
-	router.get('/game', function(req, res) {
-		Game.find({}, function(err, games) {
+	// router.get('/game', function(req, res) {
+	// 	Game.find({}, function(err, games) {
 
-			if(err) {
-				res.status(401).send('Error looking up games');
-			} else {
-				res.send(games);
-				console.log(games);
-			}
+	// 		if(err) {
+	// 			res.status(401).send('Error looking up games');
+	// 		} else {
+	// 			res.send(games);
+	// 			console.log(games);
+	// 		}
 
-		});
-	});
+	// 	});
+	// });
 
 	
 
-	router.put('/game/:id', function(req, res) {
+	router.put('/game/:id', isAuthenticated, function(req, res) {
 		var id = req.params.id;
 		Game.findOne({_id: id}, function(err, game) {
 
@@ -122,7 +122,7 @@ module.exports = function (passport) {
 		});
 	});
 
-	router.delete('/game/:id', function(req, res) {
+	router.delete('/game/:id', isAuthenticated, function(req, res) {
 		var id = req.params.id;
 		Game.findOne({_id: id}, function(err, game) {
 			game.remove(function(err) {
@@ -135,18 +135,18 @@ module.exports = function (passport) {
 		});
 	});
 
-	router.get('/user', function(req, res) {
-		User.find({}, function(err, users) {
-			if(err) {
-				res.status(401).send('Error looking up users');
-			} else {
-				res.send(users);
-				console.log(users);
-			}
-		});
-	});
+	// router.get('/user', function(req, res) {
+	// 	User.find({}, function(err, users) {
+	// 		if(err) {
+	// 			res.status(401).send('Error looking up users');
+	// 		} else {
+	// 			res.send(users);
+	// 			console.log(users);
+	// 		}
+	// 	});
+	// });
 
-	router.get('/user/:id', function(req, res) {
+	router.get('/user/:id', isAuthenticated, function(req, res) {
 		var id = req.params.id;
 		User.findOne({_id: id}, function(err, user) {
 
@@ -170,7 +170,7 @@ module.exports = function (passport) {
 	});
 
 
-	router.delete('/user/:id', function(req, res) {
+	router.delete('/user/:id', isAuthenticated, function(req, res) {
 		var id = req.params.id;
 		User.findOne({_id: id}, function(err, user) {
 			user.remove(function(err) {
@@ -184,9 +184,9 @@ module.exports = function (passport) {
 	});
 
 	//Test route
-	router.get('/items', isAuthenticated, function (req, res) {
-		res.json(["car", "bank", "toy", "dog"]);
-	});
+	// router.get('/items', isAuthenticated, function (req, res) {
+	// 	res.json(["car", "bank", "toy", "dog"]);
+	// });
 
 
 	/* Handle Logout */
