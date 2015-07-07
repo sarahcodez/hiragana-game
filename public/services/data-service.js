@@ -5,9 +5,9 @@ app.service('dataService', function() {
 	var Kana = function(name, id) {
 		this.id = id;
 		this.name = name; //hiragana
-		this.sound = "audio/tjp/hira-" + id + '.mp3'; //sound file
-		this.image = "images/hiragana/hiragana-" + id + '.png';
-		this.animated = "images/stroke-order/Hiragana_" + this.name + "_stroke_order_animation.gif";
+		this.sound = "audio/tjp/hira-" + this.id + '.mp3'; //sound file
+		this.image = "images/hiragana/hiragana-" + this.id + '.png';
+		this.animated = "images/stroke-order/Hiragana_" + this.id + "_stroke_order_animation.gif";
 		this.disabled = false;
 	};
 
