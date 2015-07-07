@@ -14,7 +14,14 @@ app.controller('signupCtrl', function ($scope, $location, authService, dataServi
 	$scope.confirmPassword = "";
 
 	$scope.signUpBtnClicked = function () {
-		authService.createUser($scope.username, $scope.password).then(onSignUp, failedSignup);
+
+		if(validated($scope.username) && validated($scope.password)) {
+			authService.createUser($scope.username, $scope.password).then(onSignUp, failedSignup);
+		} else {
+			$scope.message = "Only letters (lower or upper case) and numbers can be used for usernames and passwords."
+			$scope.messageClass = 'danger';
+		}
+
 	};
 
 	var onSignUp = function (data) {
@@ -29,6 +36,14 @@ app.controller('signupCtrl', function ($scope, $location, authService, dataServi
 		console.log(err);
 		$scope.message = err;
 		$scope.messageClass = 'danger';
+	};
+
+	var validated = function(string) {
+		if ( !/^[a-zA-Z0-9]+$/.test(string) ) {
+			return false;
+		} else {
+			return true;
+		}
 	};
 
 });

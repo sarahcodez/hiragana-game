@@ -14,7 +14,12 @@ app.controller('loginCtrl', function ($scope, $location, authService, dataServic
 	$scope.password = "";
 
 	$scope.loginBtnClicked = function () {
-		authService.login($scope.username, $scope.password).then(onLogin, failedLogin);
+		if(validated($scope.username) && validated($scope.password)) {
+			authService.login($scope.username, $scope.password).then(onLogin, failedLogin);
+		} else {
+			$scope.message = "Only letters (lower or upper case) and numbers can be used for usernames and passwords."
+			$scope.messageClass = 'danger';
+		}
 	};
 
 	var onLogin = function (data) {
@@ -33,4 +38,13 @@ app.controller('loginCtrl', function ($scope, $location, authService, dataServic
 		//$scope.message = err;
 		$scope.messageClass = 'danger';
 	};
+
+	var validated = function(string) {
+		if ( !/^[a-zA-Z0-9]+$/.test(string) ) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+
 });
