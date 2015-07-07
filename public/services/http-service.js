@@ -43,56 +43,56 @@ app.service('httpService', function($http, $q) {
 		return deferred.promise;
 	};
 
-	this.getGames = function() {
-		var deferred = $q.defer();
-		$http.get(BASE_URL + URL_GAME).success(function(data) {
-			console.log(data);
-			deferred.resolve(data);
-		}).error(function (err) {
-			console.log(err);
-			deferred.reject(err);
-		});
+	// this.getGames = function() {
+	// 	var deferred = $q.defer();
+	// 	$http.get(BASE_URL + URL_GAME).success(function(data) {
+	// 		console.log(data);
+	// 		deferred.resolve(data);
+	// 	}).error(function (err) {
+	// 		console.log(err);
+	// 		deferred.reject(err);
+	// 	});
 
-		return deferred.promise;
-	};
+	// 	return deferred.promise;
+	// };
 
-	this.getUsers = function() {
-		var deferred = $q.defer();
-		$http.get(BASE_URL + URL_USER).success(function(data) {
-			console.log(data);
-			deferred.resolve(data);
-		}).error(function (err) {
-			console.log(err);
-			deferred.reject(err);
-		});
+	// this.getUsers = function() {
+	// 	var deferred = $q.defer();
+	// 	$http.get(BASE_URL + URL_USER).success(function(data) {
+	// 		console.log(data);
+	// 		deferred.resolve(data);
+	// 	}).error(function (err) {
+	// 		console.log(err);
+	// 		deferred.reject(err);
+	// 	});
 
-		return deferred.promise;
-	};
+	// 	return deferred.promise;
+	// };
 
-	this.createUser = function(user) {
-		var deferred = $q.defer();
-		$http.post(BASE_URL + URL_USER, user).success(function(data) {
-			console.log(data);
-			deferred.resolve(data);
-		}).error(function (err) {
-			console.log(err);
-			deferred.reject(err);
-		});
+	// this.createUser = function(user) {
+	// 	var deferred = $q.defer();
+	// 	$http.post(BASE_URL + URL_USER, user).success(function(data) {
+	// 		console.log(data);
+	// 		deferred.resolve(data);
+	// 	}).error(function (err) {
+	// 		console.log(err);
+	// 		deferred.reject(err);
+	// 	});
 
-		return deferred.promise;
-	};
+	// 	return deferred.promise;
+	// };
 
-	this.getUser = function(id) {
-		var deferred = $q.defer();
-		$http.get(BASE_URL + URL_USER + '/' + id).success(function(data) {
-			console.log(data);
-			deferred.resolve(data);
-		}).error(function (err) {
-			console.log(err);
-			deferred.reject(err);
-		});
+	// this.getUser = function(id) {
+	// 	var deferred = $q.defer();
+	// 	$http.get(BASE_URL + URL_USER + '/' + id).success(function(data) {
+	// 		console.log(data);
+	// 		deferred.resolve(data);
+	// 	}).error(function (err) {
+	// 		console.log(err);
+	// 		deferred.reject(err);
+	// 	});
 
-		return deferred.promise;
-	};
+	// 	return deferred.promise;
+	// };
 
 });
