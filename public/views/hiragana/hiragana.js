@@ -271,7 +271,9 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 			if (result === 'Correct') {
 
 				guessedItems.push(kanaObj); //keep before playTestSound function
-				$scope.currentGame.masteryDeck.push(kanaObj);
+				if($scope.currentGame.reviewDeck.indexOf(kanaObj) === -1) {
+					$scope.currentGame.masteryDeck.push(kanaObj);
+				}
 				console.log($scope.currentGame.masteryDeck);
 				kanaObj.disabled = true;
 				$scope.panelImage = 'images/green-maru.png';
@@ -317,7 +319,7 @@ app.controller('mainCtrl', function ($scope, $modal, $log, $timeout, $location, 
 						
 					correctSound.onended = function() { 
 
-						if (guessedItems.length === 3) { //Game Finished
+						if (guessedItems.length === 46) { //Game Finished
 
 							finishSound.play();
 
